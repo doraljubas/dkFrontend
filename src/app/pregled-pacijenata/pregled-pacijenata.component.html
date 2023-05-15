@@ -1,0 +1,26 @@
+<div class="uk-container">
+  <div class="uk-card uk-card-small " >
+    <div class="uk-card-header">
+      <h3 class="uk-card-title">Pacijenti</h3>
+    </div>
+    <div  class="uk-card-body">
+      <table class="uk-table uk-table-striped">
+        <thead>
+        <tr>
+          <th >mbo</th>
+          <th >ime</th>
+          <th >prezime</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let patient of patients" >
+          <td >{{patient.mbo}}</td>
+          <td >{{patient.name}}</td>
+          <td >{{patient.surname}}</td>
+
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
