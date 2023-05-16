@@ -12,7 +12,7 @@ export class PregledPacijenataComponent implements OnInit{
   }
 
   ngOnInit():void{
-      this.httpService.post('getPatients',5).subscribe(
+      this.httpService.get('getPatients',{doctorId:5}).subscribe(
         (response: any) => {
           console.log(response)
           this.patients=response

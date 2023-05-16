@@ -17,7 +17,7 @@ export class HttpService {
     return this.http.post<any>(this.apiUrl+url, data, {headers: this.headers});
   }
 
-  get(url:any): Observable<any> {
-    return this.http.get<any>(this.apiUrl+url, {headers: this.headers});
+  get(url:any, params?:any): Observable<any> {
+    return this.http.get<any>(this.apiUrl+url, {headers: this.headers, params:params});
   }
 }
