@@ -1,0 +1,48 @@
+<section class="uk-container uk-margin">
+    <header >
+        <h2 >{{title}}</h2>
+    </header>
+
+
+            <table class="uk-table uk-table-striped">
+                <thead>
+                    <tr >
+                        <th *ngFor="let columnOption of columnOptions">
+                            <div  >
+                                <span style="font-size:large" >{{columnOption.columnName }}</span>
+
+                            </div>
+                        </th>
+                        <th *ngIf="actions.length>0"  style="font-size:large"> </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr >
+                        <td *ngFor="let columnOption of columnOptions">
+
+                            <app-filter [columnOption]="columnOption"
+                            (onFilterChange)="onFilterChanged($event)"
+                            (onFilterRemove)="onFilterRemoved($event)"
+                            ></app-filter>
+                        </td>
+                        <td *ngIf="actions.length>0" ></td>
+                    </tr>
+                    <tr *ngFor="let obj of page">
+
+                      <td *ngFor="let columnOption of columnOptions" >
+                        <span *ngIf="!columnOption.isNested">{{obj[columnOption.columnId] }}</span>
+                        <span *ngIf="columnOption.isNested">{{obj[columnOption.columnId][columnOption.nestedColumnId] }}</span>
+                      </td>
+                        <div  style="box-shadow: -0.5rem 0 0.5rem -1px #f3f4f9;">
+                            <td *ngFor="let action of actions" >
+                                <button class="uk-button uk-button-default" (click)="action.call(obj)">
+                                    <span *ngIf="!action.hasIcon">{{action.name}}</span>
+                                    <span *ngIf="action.hasIcon" [innerHTML]="action.iconHTML"></span>
+                            </button></td>
+                        </div>
+
+                    </tr>
+                </tbody>
+            </table>
+
+</section>

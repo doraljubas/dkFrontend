@@ -1,0 +1,58 @@
+<div class="uk-container uk-margin">
+  <button class="uk-button uk-button-default" type="button" uk-toggle="target: #novi-nalaz">DODAJ NALAZ</button>
+
+  <div class="uk-card uk-card-small " >
+    <div class="uk-card-header">
+      <h2 class="uk-card-title">Povijest bolesti</h2>
+    </div>
+    <div  class="uk-card-body">
+
+    </div>
+  </div>
+
+  <!-- This is the modal -->
+  <div id="modal-example" uk-modal id="novi-nalaz">
+    <div class="uk-modal-dialog uk-modal-body">
+      <h2 class="uk-modal-title">Novi nalaz</h2>
+
+      <div class="uk-grid">
+        <div class="uk-width-1-2@s">
+          <div class="uk-margin">
+            <label>Datum: {{todayDate}}</label>
+          </div>
+        </div>
+        <div class="uk-width-1-2@s">
+          <div class="uk-margin">
+            <label>Ustanova: {{doctor.facility.nameFacility}}</label>
+          </div>
+        </div>
+        <div class="uk-width-1-2@s">
+          <div class="uk-margin">
+            <label>Liječnik: {{doctor.specialization.shortSpecialization}} {{doctor.name}} {{doctor.surname}}</label>
+          </div>
+        </div>
+        <div class="uk-width-1-2@s">
+          <div class="uk-margin">
+            <label>Pacijent: {{patient.mbo}} {{patient.name}} {{patient.surname}}</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="uk-margin">
+        <textarea class="uk-textarea" placeholder="anamneza"  type="textarea" [(ngModel)]="report.anamnesis"></textarea>
+      </div>
+      <div class="uk-margin">
+        <textarea class="uk-textarea" placeholder="dijagnoza" type="textarea" [(ngModel)]="report.diagnosis" ></textarea>
+      </div>
+      <div class="uk-margin">
+        <textarea class="uk-textarea" placeholder="preporuke" type="textarea" [(ngModel)]="report.recomendation"></textarea>
+      </div>
+
+      <p class="uk-text-right">
+        <button class="uk-button uk-button-danger uk-modal-close" type="button">ODUSTANI</button>
+        <button class="uk-button uk-button-primary" type="button">SPREMI</button>
+      </p>
+
+    </div>
+  </div>
+</div>

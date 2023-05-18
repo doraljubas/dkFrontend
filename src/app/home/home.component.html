@@ -1,0 +1,30 @@
+
+
+<div class="uk-section uk-flex uk-flex-middle uk-animation-fade" >
+  <div class="uk-width-1-1">
+    <div class="uk-container">
+      <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid>
+        <div class="uk-width-1-1@m ">
+
+          <div class="uk-card uk-card-medium uk-margin uk-width-large uk-margin-auto uk-card-body  uk-box-shadow-large">
+            <h3 class="uk-card-title">Dobrodošli u <span class="uk-text-lead uk-text-primary uk-text-bold">Digitalni karton</span></h3>
+            <input placeholder="korisničko ime" type="text" class="uk-input">
+            <input placeholder="lozinka" type="password" class="uk-input">
+            <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+              <label><input class="uk-radio" type="radio" name="role" [(ngModel)]="selectedRole" value="L"> Liječnik</label>
+              <label><input class="uk-radio" type="radio" name="role" [(ngModel)]="selectedRole" value="P"> Pacijent</label>
+              <label><input class="uk-radio" type="radio" name="role" [(ngModel)]="selectedRole" value="A"> Admin</label>
+            </div>
+            <button class="uk-button uk-button-primary" (click)="prijava()">PRIJAVA</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
