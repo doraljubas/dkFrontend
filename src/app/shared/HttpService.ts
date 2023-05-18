@@ -13,8 +13,8 @@ export class HttpService {
 
   constructor(private http: HttpClient) {}
 
-  post(url:any,data?: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl+url, data, {headers: this.headers});
+  post(url:any,data?: any,params?:any): Observable<any> {
+    return this.http.post<any>(this.apiUrl+url, data, {headers: this.headers, params:params});
   }
 
   get(url:any, params?:any): Observable<any> {
