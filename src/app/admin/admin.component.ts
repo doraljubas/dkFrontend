@@ -52,7 +52,7 @@ export class AdminComponent implements OnInit{
     deleteMedication = (obj:any) => {
       console.log("delete")
       console.log(obj)
-      this.httpService.get('deleteMedication',{medicationId:obj.medicationId}).subscribe(
+      this.httpService.get('deleteMedication',{medicationId:obj.idMedication}).subscribe(
         (response: any) => {})
     }
     editMedication = (obj:any) => {
