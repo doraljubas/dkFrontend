@@ -1,8 +1,5 @@
 <div >
-
-
         <div [ngClass]="{'uk-input':currentFilterType!=0 && currentFilter}">
-
                 <!--odabir vrste filtera-->
                 <select  [(ngModel)]="currentFilterType" (ngModelChange)="removeFilter()"  class="uk-select"  style="width:200px">
                     <option [value]=0 >-- Odaberi vrstu filtera -- </option>
@@ -10,6 +7,7 @@
                         {{filter.name}}
                     </option>
                 </select>
+                <!--ponistavanje filtera-->
                 <div class="input-group-append" *ngIf="currentFilterType!=0 && currentFilter" >
                     <span class="input-group-text">
                         <a (click)="removeFilter()"
@@ -17,32 +15,21 @@
                     </span>
 
                 </div>
-                <!--ponistavanje filtera-->
-
-
         </div>
-
-<!---->
-
-
-
 
     <!--like i exact filter-->
     <div class="mt-1" *ngIf="currentFilterType==allFilterTypes.LIKE || currentFilterType==allFilterTypes.EXACT"  style="width:200px">
-        <input [(ngModel)]="exactFilterValue" (ngModelChange)="onLikeExactFilterChange()"
+        <input [(ngModel)]="filterValue" (ngModelChange)="onLikeExactFilterChange()"
         placeholder="..."  class="form-control form-element form-element-sm " />
     </div>
 
 
-
-
     <!--range filter-->
-
-        <div class="uk-margin " *ngIf="currentFilterType==allFilterTypes.RANGE"  style="width:200px" >
-            <input [(ngModel)]="fromFilterValue" (ngModelChange)="onRangeFilterChange($event)"
-                   class="uk-input" placeholder=" -- {{'filter.from' }} -- " style="margin:0"/>
-            <input [(ngModel)]="toFilterValue" (ngModelChange)="onRangeFilterChange($event)"
-                   class="uk-input" placeholder="-- {{'filter.to' }} --" style="margin:0"/>
-        </div>
+<!--        <div class="uk-margin " *ngIf="currentFilterType==allFilterTypes.RANGE"  style="width:200px" >-->
+<!--            <input [(ngModel)]="fromFilterValue" (ngModelChange)="onRangeFilterChange($event)"-->
+<!--                   class="uk-input" placeholder=" &#45;&#45; {{'filter.from' }} &#45;&#45; " style="margin:0"/>-->
+<!--            <input [(ngModel)]="toFilterValue" (ngModelChange)="onRangeFilterChange($event)"-->
+<!--                   class="uk-input" placeholder="&#45;&#45; {{'filter.to' }} &#45;&#45;" style="margin:0"/>-->
+<!--        </div>-->
 
 </div>

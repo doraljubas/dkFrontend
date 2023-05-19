@@ -42,14 +42,18 @@ export class PregledPacijenataComponent implements OnInit{
     window.location.href = '/pregledPacijenata/'+obj.idPatient;
   }
 
+
   filterChanged(filter:any){
-    console.log(this.chosenFilters)
-    this.chosenFilters.push(filter)
+    this.chosenFilters.splice(this.chosenFilters.indexOf(filter.oldFilter),1)
+    this.chosenFilters.push(filter.newFilter)
     this.getPatients()
   }
   filterRemoved(filter:any){
-    console.log(this.chosenFilters)
     this.chosenFilters.splice(this.chosenFilters.indexOf(filter),1)
+    this.getPatients()
+  }
+  filterAdded(filter:any){
+    this.chosenFilters.push(filter)
     this.getPatients()
   }
 }

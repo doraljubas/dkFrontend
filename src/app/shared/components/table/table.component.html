@@ -23,6 +23,7 @@
                             <app-filter [columnOption]="columnOption"
                             (onFilterChange)="onFilterChanged($event)"
                             (onFilterRemove)="onFilterRemoved($event)"
+                            (onFilterAdd)="onFilterAdded($event)"
                             ></app-filter>
                         </td>
                         <td *ngIf="actions.length>0" ></td>

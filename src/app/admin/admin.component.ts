@@ -33,15 +33,20 @@ export class AdminComponent implements OnInit{
     }
 
     filterChanged(filter:any){
-      console.log(this.chosenFilters)
-      this.chosenFilters.push(filter)
+      this.chosenFilters.splice(this.chosenFilters.indexOf(filter.oldFilter),1)
+      this.chosenFilters.push(filter.newFilter)
       this.getMedications()
     }
     filterRemoved(filter:any){
-      console.log(this.chosenFilters)
       this.chosenFilters.splice(this.chosenFilters.indexOf(filter),1)
       this.getMedications()
     }
+    filterAdded(filter:any){
+      this.chosenFilters.push(filter)
+      this.getMedications()
+    }
+
+
     getMedications(){
       this.httpService.post('getMedications',this.chosenFilters).subscribe(
         (response: any) => {

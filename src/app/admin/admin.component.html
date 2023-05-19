@@ -1,5 +1,6 @@
 <div class="uk-container uk-margin">
   <app-table [page]="medications" [columnOptions]="colummOptions" [title]="pageTitle" [actions]="actions"
   (onFilterChange)="filterChanged($event)"
-  (onFilterRemove)="filterRemoved($event)"> </app-table>
+  (onFilterRemove)="filterRemoved($event)"
+  (onFilterAdd)="filterAdded($event)"> </app-table>
 </div>

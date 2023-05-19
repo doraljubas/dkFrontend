@@ -13,21 +13,22 @@ import {FilterType} from "../../filter-model/filterType";
   export class FilterComponent implements OnInit{
 
     @Input() public columnOption!: ColumnOption;
-    @Output() public onFilterChange = new EventEmitter<Filter>();
+    @Output() public onFilterChange = new EventEmitter<any>();
     @Output() public onFilterRemove = new EventEmitter<Filter>();
+    @Output() public onFilterAdd = new EventEmitter<Filter>();
 
     currentFilterType=FilterType.NONE;
     allFilterTypes=FilterType;
     currentFilter:any;
 
-    exactFilterValue="";
+    filterValue="";
 
-    checkedList:string[]=[];
-    checkedFlags:any={}
-    showDropDown=true;
+    // checkedList:string[]=[];
+    // checkedFlags:any={}
+    // showDropDown=true;
 
-    fromFilterValue=""
-    toFilterValue=""
+    // fromFilterValue=""
+    // toFilterValue=""
 
     constructor() {
     }
@@ -37,11 +38,16 @@ import {FilterType} from "../../filter-model/filterType";
     }
 
     onLikeExactFilterChange(){
-        if(this.currentFilter)this.onFilterRemove.emit(this.currentFilter);
-        if(this.exactFilterValue !=""){
-            this.currentFilter=new Filter(this.currentFilterType, this.columnOption.columnId,this.exactFilterValue )
-            this.onFilterChange.emit(this.currentFilter)
+        if(this.filterValue !=""){
+          let newFilter=new Filter(this.currentFilterType, this.columnOption.columnId,this.filterValue )
+          if(this.currentFilter){
+            this.onFilterChange.emit({oldFilter:this.currentFilter,newFilter:newFilter})
+          }else{
+            this.onFilterAdd.emit(newFilter)
+          }
+          this.currentFilter=newFilter;
         }else{
+            this.onFilterRemove.emit(this.currentFilter);
             this.currentFilter=undefined;
         }
 
@@ -53,10 +59,10 @@ import {FilterType} from "../../filter-model/filterType";
             // if(this.currentFilterType==FilterType.LIKE){
             //     (<HTMLInputElement>document.getElementById(this.columnOption.filterId)).value=''
             // }
-            this.exactFilterValue=""
-            this.checkedList=[]
-            this.fromFilterValue=""
-            this.toFilterValue=""
+            // this.exactFilterValue=""
+            // this.checkedList=[]
+            // this.fromFilterValue=""
+            // this.toFilterValue=""
         }
     }
 
@@ -65,29 +71,29 @@ import {FilterType} from "../../filter-model/filterType";
     //     this.currentFilter=new Filter(FilterType.EXACT, this.columnOption.columnId,value )
     //     this.onFilterChange.emit(this.currentFilter)
     // }
-
-    onSelectFilterChange(status:boolean,value:string){
-        if(status){
-            this.checkedList.push(value);
-
-        }else{
-            var index = this.checkedList.indexOf(value);
-            this.checkedList.splice(index,1);
-        }
-        if(this.currentFilter)this.onFilterRemove.emit(this.currentFilter);
-        this.currentFilter=new Filter(FilterType.SELECT, this.columnOption.columnId,undefined, this.checkedList )
-        console.log(this.currentFilter)
-        this.onFilterChange.emit(this.currentFilter)
-    }
-
-    onRangeFilterChange(value:string){
-        if(this.currentFilter)this.onFilterRemove.emit(this.currentFilter);
-        if(this.fromFilterValue!="" && this.toFilterValue!=""){
-            this.currentFilter=new Filter(FilterType.RANGE, this.columnOption.columnId,undefined,undefined,this.fromFilterValue,this.toFilterValue )
-            this.onFilterChange.emit(this.currentFilter)
-        }else{
-            this.currentFilter=undefined;
-        }
-    }
+    //
+    // onSelectFilterChange(status:boolean,value:string){
+    //     if(status){
+    //         this.checkedList.push(value);
+    //
+    //     }else{
+    //         var index = this.checkedList.indexOf(value);
+    //         this.checkedList.splice(index,1);
+    //     }
+    //     if(this.currentFilter)this.onFilterRemove.emit(this.currentFilter);
+    //     this.currentFilter=new Filter(FilterType.SELECT, this.columnOption.columnId,undefined, this.checkedList )
+    //     console.log(this.currentFilter)
+    //     this.onFilterChange.emit(this.currentFilter)
+    // }
+    //
+    // onRangeFilterChange(value:string){
+    //     if(this.currentFilter)this.onFilterRemove.emit(this.currentFilter);
+    //     if(this.fromFilterValue!="" && this.toFilterValue!=""){
+    //         this.currentFilter=new Filter(FilterType.RANGE, this.columnOption.columnId,undefined,undefined,this.fromFilterValue,this.toFilterValue )
+    //         this.onFilterChange.emit(this.currentFilter)
+    //     }else{
+    //         this.currentFilter=undefined;
+    //     }
+    // }
 
 }

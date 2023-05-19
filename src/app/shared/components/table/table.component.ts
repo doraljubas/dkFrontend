@@ -15,9 +15,9 @@ export class TableComponent implements OnInit, OnChanges {
   @Input() public title: String = "";
   @Input() public columnOptions!: ColumnOption[];
   @Input() public actions!:Action[];
-  @Output() public onFilterChange = new EventEmitter<Filter>()
+  @Output() public onFilterChange = new EventEmitter<any>()
   @Output() public onFilterRemove = new EventEmitter<Filter>()
-
+  @Output() public onFilterAdd= new EventEmitter<Filter>()
 
 
   constructor() {
@@ -32,11 +32,14 @@ export class TableComponent implements OnInit, OnChanges {
 
   }
 
-  onFilterChanged(filter:Filter){
+  onFilterChanged(filter:any){
     this.filterOn=true
     this.onFilterChange.emit(filter)
   }
   onFilterRemoved(filter:Filter){
     this.onFilterRemove.emit(filter)
+  }
+  onFilterAdded(filter:Filter){
+    this.onFilterAdd.emit(filter)
   }
 }

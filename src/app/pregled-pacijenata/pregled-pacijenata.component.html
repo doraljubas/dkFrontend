@@ -25,5 +25,6 @@
 <!--  </div>-->
   <app-table [page]="patients" [columnOptions]="colummOptions" [title]="title" [actions]="actions"
              (onFilterChange)="filterChanged($event)"
-             (onFilterRemove)="filterRemoved($event)"> </app-table>
+             (onFilterRemove)="filterRemoved($event)"
+             (onFilterAdd)="filterAdded($event)"> </app-table>
 </div>
