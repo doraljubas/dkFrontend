@@ -41,15 +41,7 @@ export class PovijestBolestComponent implements OnInit {
 
   }
 
-  dodajNalaz():void{
-    this.report.dateReport=this.todayDate
-    this.report.doctor=this.doctor
-    this.report.patient=this.patient
-    this.httpService.post('addReport',this.report).subscribe(
-      (response: any) => {
 
-      })
-  }
   addPrescription():void{
     this.httpService.post('getMedications',[]).subscribe(
       (response: any) => {
@@ -59,7 +51,11 @@ export class PovijestBolestComponent implements OnInit {
   }
 
   spremiNalaz():void{
+    this.report.dateReport=this.todayDate
+    this.report.doctor=this.doctor
+    this.report.patient=this.patient
     let dto={report:this.report,prescriptions:this.prescriptions}
+    console.log(dto)
     this.httpService.post('addReport',dto).subscribe(
       (response: any) => {
         window.location.reload()
