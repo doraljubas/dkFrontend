@@ -8,12 +8,14 @@ import {HttpService} from "../shared/HttpService";
 })
 export class PovijestBolestComponent implements OnInit {
   id:any
-  public reports:any[]=[]
-  public patient:any
-  public doctor:any
-  public todayDate:any = new Date().toISOString().slice(0, 10);
+  reports:any[]=[]
+  patient:any
+  doctor:any
+  todayDate:any = new Date().toISOString().slice(0, 10);
+  medications:any[]=[]
 
-  public report:any
+  report:any={}
+  prescriptions:any[]=[]
 
   constructor(private route: ActivatedRoute, private httpService:HttpService) { }
 
@@ -47,6 +49,20 @@ export class PovijestBolestComponent implements OnInit {
       (response: any) => {
 
       })
+  }
+  addPrescription():void{
+    this.httpService.post('getMedications',[]).subscribe(
+      (response: any) => {
+        this.medications=response
+        this.prescriptions.push({medication:{}})
+      })
+  }
 
+  spremiNalaz():void{
+    let dto={report:this.report,prescriptions:this.prescriptions}
+    this.httpService.post('addReport',dto).subscribe(
+      (response: any) => {
+        window.location.reload()
+      })
   }
 }

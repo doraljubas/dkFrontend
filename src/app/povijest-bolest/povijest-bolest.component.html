@@ -1,5 +1,5 @@
-<div class="uk-container uk-margin">
-  <button class="uk-button uk-button-default" type="button" uk-toggle="target: #novi-nalaz">DODAJ NALAZ</button>
+<div class="uk-container uk-margin uk-padding">
+  <button class="uk-button uk-button-default " type="button" uk-toggle="target: #novi-nalaz">DODAJ NALAZ</button>
 
   <div class="uk-card uk-card-small " >
     <div class="uk-card-header">
@@ -11,7 +11,7 @@
   </div>
 
   <!-- This is the modal -->
-  <div id="modal-example" uk-modal id="novi-nalaz">
+  <div  uk-modal id="novi-nalaz">
     <div class="uk-modal-dialog uk-modal-body">
       <h2 class="uk-modal-title">Novi nalaz</h2>
 
@@ -48,9 +48,35 @@
         <textarea class="uk-textarea" placeholder="preporuke" type="textarea" [(ngModel)]="report.recomendation"></textarea>
       </div>
 
+      <h4>Recepti <a (click)="addPrescription()"><i class="fa-regular fa-square-plus" style="color: #1e87f0;"></i></a></h4>
+      <div *ngFor="let prescription of prescriptions, let i=index" class="uk-grid">
+        <div class="uk-width-1-2">
+          Lijek:
+        </div>
+        <div class="uk-width-1-2">
+          Datum isteka recepta:
+        </div>
+        <div class="uk-width-1-2">
+          <select  [(ngModel)]="prescription.medication.idMedication"  class="uk-select"  style="width:200px">
+            <option *ngFor="let medication of medications" [value]="medication.idMedication" >
+              {{medication.nameMedication}}
+            </option>
+          </select>
+        </div>
+        <div class="uk-width-1-2">
+          <input type="date" [(ngModel)]="prescription.dateOfExpiry" class="uk-input">
+        </div>
+        <div  class="uk-width-1-1 uk-margin-top">
+          <textarea class="uk-textarea" placeholder="upute za korištenje" type="textarea" [(ngModel)]="prescription.instructions"></textarea>
+        </div>
+       <hr>
+
+      </div>
+
+
       <p class="uk-text-right">
         <button class="uk-button uk-button-danger uk-modal-close" type="button">ODUSTANI</button>
-        <button class="uk-button uk-button-primary" type="button">SPREMI</button>
+        <button class="uk-button uk-button-primary" type="button" (click)="spremiNalaz()">SPREMI</button>
       </p>
 
     </div>

@@ -1,6 +1,80 @@
-<div class="uk-container uk-margin">
+<div class="uk-container uk-margin uk-padding">
+  <button class="uk-button uk-button-default uk-align-right" (click)="showAddPanelFunction()"><i class="fa-solid fa-file-medical fa-lg" style="color: #1e87f0;"></i> DODAJ NALAZ</button>
+
+  <div class="uk-margin uk-padding" *ngIf="showAddPanel">
+    <h2> Dodaj lijek </h2>
+    <div class="uk-grid">
+      <div class="uk-width-1-3">
+        ime lijeka:
+      </div>
+      <div class="uk-width-1-3">
+        vrsta lijeka:
+      </div>
+      <div class="uk-width-1-3">
+        proizvođač:
+      </div>
+      <div class="uk-width-1-3">
+        <input [(ngModel)]="objToBeAdded.nameMedication" class="uk-input">
+      </div>
+      <div class="uk-width-1-3">
+        <input [(ngModel)]="objToBeAdded.typeMedication" class="uk-input">
+      </div>
+      <div class="uk-width-1-3">
+        <select  [(ngModel)]="objToBeAdded.company.idCompany"  class="uk-select"  style="width:200px">
+        <option *ngFor="let company of companies" [value]="company.idCompany" >
+          {{company.companyName}}
+        </option>
+      </select>
+      </div>
+    </div>
+    <p *ngIf="addFailed" class="uk-text-danger">Već postoji lijek s istim imenom, vrstom i proizvođačem!</p>
+    <div class="uk-margin">
+      <button class="uk-button uk-button-danger" (click)="showAddPanel=false" type="button">ODUSTANI</button>
+      <button class="uk-button uk-button-primary" type="button" (click)="addMedication()">SPREMI</button>
+    </div>
+  </div>
+
   <app-table [page]="medications" [columnOptions]="colummOptions" [title]="pageTitle" [actions]="actions"
   (onFilterChange)="filterChanged($event)"
   (onFilterRemove)="filterRemoved($event)"
   (onFilterAdd)="filterAdded($event)"> </app-table>
 </div>
+
+<div *ngIf="showEditModal" uk-modal id="edit">
+  <div class="uk-modal-dialog uk-width-1-1">
+    <div class="uk-margin uk-padding">
+      <h2> Uredi lijek </h2>
+      <div class="uk-grid">
+        <div class="uk-width-1-3">
+          ime lijeka:
+        </div>
+        <div class="uk-width-1-3">
+          vrsta lijeka:
+        </div>
+        <div class="uk-width-1-3">
+          proizvođač:
+        </div>
+        <div class="uk-width-1-3">
+          <input [(ngModel)]="objToBeEdited.nameMedication" class="uk-input">
+        </div>
+        <div class="uk-width-1-3">
+          <input [(ngModel)]="objToBeEdited.typeMedication" class="uk-input">
+        </div>
+        <div class="uk-width-1-3">
+          <select  [(ngModel)]="objToBeEdited.company.idCompany"  class="uk-select"  style="width:200px">
+          <option *ngFor="let company of companies" [value]="company.idCompany" >
+            {{company.companyName}}
+          </option>
+        </select>
+        </div>
+      </div>
+      <p *ngIf="editFailed" class="uk-text-danger">Već postoji lijek s istim imenom, vrstom i proizvođačem!</p>
+      <div class="uk-margin">
+        <button class="uk-button uk-button-danger uk-modal-close" type="button">ODUSTANI</button>
+        <button class="uk-button uk-button-primary" type="button" (click)="editMedication()">SPREMI</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+

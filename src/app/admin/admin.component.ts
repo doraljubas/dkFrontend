@@ -3,6 +3,7 @@ import {HttpService} from "../shared/HttpService";
 import ColumnOption from "../shared/components/table/models/column-option";
 import {FilterType} from "../shared/filter-model/filterType";
 import Action from "../shared/components/table/models/action";
+import UIkit from 'uikit';
 
 @Component({
   selector: 'app-admin',
@@ -19,15 +20,23 @@ export class AdminComponent implements OnInit{
 
     pageTitle="Lijekovi"
 
-    actions:Action[]=[new Action("Delete",(obj:any)=>this.deleteMedication(obj),true,"<i class=\"fa-solid fa-trash-can\" ></i>"),
-      new Action("Edit",(obj:any)=>this.editMedication(obj),true,"<i class=\"fa-solid fa-pen-to-square\"></i>")]
+    actions:Action[]=[new Action("Delete",(obj:any)=>this.showDeleteModalFunction(obj),true,"<i class=\"fa-solid fa-trash-can\" ></i>"),
+      new Action("Edit",(obj:any)=>this.showEditModalFunction(obj),true,"<i class=\"fa-solid fa-pen-to-square\"></i>")]
 
     chosenFilters:any[]=[]
 
+    showEditModal:boolean=false
+    objToBeEdited:any
+    showAddPanel:boolean=false
+    objToBeAdded:any={company:{}}
 
-    constructor(private httpService: HttpService) {
+    companies:any[]=[]
 
-    }
+    editFailed:boolean=false
+    addFailed:boolean=false
+
+    constructor(private httpService: HttpService) { }
+
     ngOnInit():void{
       this.getMedications()
     }
@@ -50,19 +59,57 @@ export class AdminComponent implements OnInit{
     getMedications(){
       this.httpService.post('getMedications',this.chosenFilters).subscribe(
         (response: any) => {
-          console.log(response)
           this.medications=response
         })
     }
-    deleteMedication = (obj:any) => {
-      console.log("delete")
-      console.log(obj)
-      this.httpService.get('deleteMedication',{medicationId:obj.idMedication}).subscribe(
-        (response: any) => {})
-    }
-    editMedication = (obj:any) => {
-      console.log("edit")
-      console.log(obj)
+
+    showDeleteModalFunction(obj:any){
+      UIkit.modal.confirm("Jeste li sigurni da želite obrisati odabrani lijek?").then(
+        ()=>this.deleteMedication(obj),
+        ()=>console.log("cancel"));
     }
 
+    deleteMedication (obj:any) {
+      this.httpService.get('deleteMedication',{medicationId:obj.idMedication}).subscribe(
+        (response: any) => {window.location.reload()})
+    }
+    showEditModalFunction(obj:any){
+      this.showEditModal=true
+      this.httpService.get('getCompanies').subscribe(response=>{
+        this.companies=response
+        UIkit.modal("#edit").show()
+      })
+      this.objToBeEdited=obj
+
+
+    }
+    editMedication() {
+      console.log(this.objToBeEdited)
+      this.httpService.post('editMedication',this.objToBeEdited).subscribe(
+        (response: any) => {
+          if(response==false){
+            this.editFailed=true
+            return
+          }
+          window.location.reload()
+        })
+    }
+    showAddPanelFunction(){
+      this.httpService.get('getCompanies').subscribe(response=>{
+        this.companies=response
+        this.showAddPanel=true
+      })
+
+    }
+
+    addMedication(){
+      this.httpService.post('insertMedication',this.objToBeAdded).subscribe(
+        (response: any) => {
+          if(response==false){
+            this.addFailed=true
+            return
+          }
+          window.location.reload()
+        })
+    }
 }
