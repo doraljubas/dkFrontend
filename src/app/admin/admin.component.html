@@ -27,7 +27,7 @@
       </select>
       </div>
     </div>
-    <p *ngIf="addFailed" class="uk-text-danger">Već postoji lijek s istim imenom, vrstom i proizvođačem!</p>
+    <p *ngIf="addFailed" class="uk-text-danger">{{failMessage}}</p>
     <div class="uk-margin">
       <button class="uk-button uk-button-danger" (click)="showAddPanel=false" type="button">ODUSTANI</button>
       <button class="uk-button uk-button-primary" type="button" (click)="addMedication()">SPREMI</button>
@@ -68,7 +68,7 @@
         </select>
         </div>
       </div>
-      <p *ngIf="editFailed" class="uk-text-danger">Već postoji lijek s istim imenom, vrstom i proizvođačem!</p>
+      <p *ngIf="editFailed" class="uk-text-danger">{{failMessage}}</p>
       <div class="uk-margin">
         <button class="uk-button uk-button-danger uk-modal-close" type="button">ODUSTANI</button>
         <button class="uk-button uk-button-primary" type="button" (click)="editMedication()">SPREMI</button>

@@ -33,6 +33,7 @@ export class AdminComponent implements OnInit{
     companies:any[]=[]
 
     editFailed:boolean=false
+    failMessage:string=""
     addFailed:boolean=false
 
     constructor(private httpService: HttpService) { }
@@ -87,8 +88,13 @@ export class AdminComponent implements OnInit{
       console.log(this.objToBeEdited)
       this.httpService.post('editMedication',this.objToBeEdited).subscribe(
         (response: any) => {
-          if(response==false){
+          if(response!=0){
             this.editFailed=true
+            if(response==1){
+              this.failMessage="Ne mogu postojati 2 lijeka istog imena, a različitog tipa"
+            }else if(response==2){
+              this.failMessage="Već postoji lijek istog imena, tipa i proizvođača"
+            }
             return
           }
           window.location.reload()
@@ -105,8 +111,13 @@ export class AdminComponent implements OnInit{
     addMedication(){
       this.httpService.post('insertMedication',this.objToBeAdded).subscribe(
         (response: any) => {
-          if(response==false){
+          if(response!=0){
             this.addFailed=true
+            if(response==1){
+              this.failMessage="Ne mogu postojati 2 lijeka istog imena, a različitog tipa"
+            }else if(response==2){
+              this.failMessage="Već postoji lijek istog imena, tipa i proizvođača"
+            }
             return
           }
           window.location.reload()
