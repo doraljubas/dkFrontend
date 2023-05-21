@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {HttpService} from "../shared/HttpService";
+import UIkit from 'uikit';
 
 @Component({
   selector: 'app-povijest-bolest',
@@ -8,14 +9,17 @@ import {HttpService} from "../shared/HttpService";
 })
 export class PovijestBolestComponent implements OnInit {
   id:any
-  reports:any[]=[]
+  reportsAndPrescriptions:any[]=[]
+
+  //za spremanje novog nalaza
+  report:any={}
+  prescriptions:any[]=[]
   patient:any
   doctor:any
   todayDate:any = new Date().toISOString().slice(0, 10);
   medications:any[]=[]
 
-  report:any={}
-  prescriptions:any[]=[]
+  showReportDetails:boolean=false
 
   constructor(private route: ActivatedRoute, private httpService:HttpService) { }
 
@@ -24,18 +28,15 @@ export class PovijestBolestComponent implements OnInit {
     this.httpService.get('getReports',{patientId:this.id}).subscribe(
       (response: any) => {
         console.log(response)
-        this.reports=response
+        this.reportsAndPrescriptions=response
       })
     this.httpService.get('getPatient',{patientId:this.id}).subscribe(
       (response: any) => {
-        console.log(response)
         this.patient=response
       })
     this.httpService.get('getDoctor',{doctorId:5}).subscribe(
       (response: any) => {
-        console.log(response)
         this.doctor=response
-        console.log(this.doctor.facility)
       })
 
 
@@ -50,7 +51,7 @@ export class PovijestBolestComponent implements OnInit {
       })
   }
 
-  spremiNalaz():void{
+  saveReportAndPrescriptions():void{
     this.report.dateReport=this.todayDate
     this.report.doctor=this.doctor
     this.report.patient=this.patient
@@ -61,4 +62,15 @@ export class PovijestBolestComponent implements OnInit {
         window.location.reload()
       })
   }
+
+  deleteReport(idReport:any){
+    UIkit.modal.confirm("Jeste li sigurni da želite obrisati odabrani nalaz?").then(
+      ()=>this.httpService.get('deleteReport',{reportId:idReport}).subscribe(
+        (response: any) => {
+          window.location.reload()
+        }),
+      ()=>console.log("cancel"));
+  }
+
+
 }

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import {DatePipe} from "@angular/common";
 import { AppComponent } from './app.component';
 import { PregledPacijenataComponent } from './pregled-pacijenata/pregled-pacijenata.component';
 import {HttpClientModule} from "@angular/common/http";
@@ -31,10 +31,12 @@ const routes: Routes = [
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    //add datepipe
+
     RouterModule.forRoot(routes)
   ],
   exports: [RouterModule],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
