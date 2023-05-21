@@ -1,7 +1,7 @@
 <div class="uk-container">
   <div class="uk-text-right uk-padding-small">
     <i class="fa-regular fa-user"></i>
-    {{doctor.specialization.shortSpecialization}} {{doctor.name}} {{doctor.surname}}
+    dr.med. {{doctor.name}} {{doctor.surname}}
   </div>
 
   <app-table [page]="patients" [columnOptions]="colummOptions" [title]="title" [actions]="actions"

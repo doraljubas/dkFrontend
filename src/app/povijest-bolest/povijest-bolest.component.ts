@@ -19,7 +19,7 @@ export class PovijestBolestComponent implements OnInit {
   todayDate:any = new Date().toISOString().slice(0, 10);
   medications:any[]=[]
 
-  showReportDetails:boolean=false
+  showReportDetails:any[]=[]
 
   constructor(private route: ActivatedRoute, private httpService:HttpService) { }
 
