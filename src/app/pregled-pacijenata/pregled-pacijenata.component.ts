@@ -9,7 +9,8 @@ import Action from "../shared/components/table/models/action";
   templateUrl: './pregled-pacijenata.component.html'
 })
 export class PregledPacijenataComponent implements OnInit{
-  public patients:any[]=[]
+  patients:any[]=[]
+  doctor:any
 
   filterTypes=[{id:FilterType.LIKE,name:"LIKE"},{id:FilterType.EXACT,name:"EXACT"}]
 
@@ -29,6 +30,10 @@ export class PregledPacijenataComponent implements OnInit{
 
   ngOnInit():void{
     this.getPatients()
+    this.httpService.get('getDoctor',{doctorId:5}).subscribe(
+      (response: any) => {
+        this.doctor=response
+      })
   }
   getPatients(){
     this.httpService.post('getPatients',this.chosenFilters,{doctorId:5}).subscribe(
