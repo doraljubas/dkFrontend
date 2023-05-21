@@ -23,13 +23,6 @@ import {FilterType} from "../../filter-model/filterType";
 
     filterValue="";
 
-    // checkedList:string[]=[];
-    // checkedFlags:any={}
-    // showDropDown=true;
-
-    // fromFilterValue=""
-    // toFilterValue=""
-
     constructor() {
     }
 
@@ -56,44 +49,7 @@ import {FilterType} from "../../filter-model/filterType";
         if(this.currentFilter){
             this.onFilterRemove.emit(this.currentFilter)
             this.currentFilter=undefined;
-            // if(this.currentFilterType==FilterType.LIKE){
-            //     (<HTMLInputElement>document.getElementById(this.columnOption.filterId)).value=''
-            // }
-            // this.exactFilterValue=""
-            // this.checkedList=[]
-            // this.fromFilterValue=""
-            // this.toFilterValue=""
         }
     }
-
-    // onExactFilterChange(value:string){
-    //     if(this.currentFilter)this.onFilterRemove.emit(this.currentFilter);
-    //     this.currentFilter=new Filter(FilterType.EXACT, this.columnOption.columnId,value )
-    //     this.onFilterChange.emit(this.currentFilter)
-    // }
-    //
-    // onSelectFilterChange(status:boolean,value:string){
-    //     if(status){
-    //         this.checkedList.push(value);
-    //
-    //     }else{
-    //         var index = this.checkedList.indexOf(value);
-    //         this.checkedList.splice(index,1);
-    //     }
-    //     if(this.currentFilter)this.onFilterRemove.emit(this.currentFilter);
-    //     this.currentFilter=new Filter(FilterType.SELECT, this.columnOption.columnId,undefined, this.checkedList )
-    //     console.log(this.currentFilter)
-    //     this.onFilterChange.emit(this.currentFilter)
-    // }
-    //
-    // onRangeFilterChange(value:string){
-    //     if(this.currentFilter)this.onFilterRemove.emit(this.currentFilter);
-    //     if(this.fromFilterValue!="" && this.toFilterValue!=""){
-    //         this.currentFilter=new Filter(FilterType.RANGE, this.columnOption.columnId,undefined,undefined,this.fromFilterValue,this.toFilterValue )
-    //         this.onFilterChange.emit(this.currentFilter)
-    //     }else{
-    //         this.currentFilter=undefined;
-    //     }
-    // }
 
 }
